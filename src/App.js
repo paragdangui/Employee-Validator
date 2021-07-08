@@ -1,6 +1,7 @@
 import UserInput from "./components/User/UserInput/UserInput";
 import UserListing from "./components/User/UserListing/UserListing";
 import React, { useState } from 'react';
+import Wrapper from './components/Helpers/Wrapper';
 
 // const initialValues = [
 //   { id: 1, name: "Sam", age: 22 },
@@ -21,7 +22,7 @@ function App() {
   }
 
   return (
-    <div>
+    <Wrapper>
       <UserInput
         onUserValues={inputValuesHandler}
       />
@@ -29,7 +30,7 @@ function App() {
         userValues={userInputValues}
       /> : ''}
 
-    </div>
+    </Wrapper>
 
   );
 }

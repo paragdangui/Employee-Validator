@@ -1,4 +1,5 @@
 import styles from './UserListing.module.css';
+
 import Card from '../../UI/Card'
 
 const UserListing = (props) => {
