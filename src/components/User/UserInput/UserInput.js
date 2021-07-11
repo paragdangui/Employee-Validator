@@ -1,29 +1,23 @@
 import styles from "./UserInput.module.css";
 import Card from "../../UI/Card";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import button from "../../UI/Button.module.css";
 import ErrorModal from "../../UI/ErrorModal";
 
 
 
 const UserInput = (props) => {
-	const [userInput, setUserInput] = useState("");
-	const [ageInput, setAgeInput] = useState("");
-	let [error, setError] = useState();
-
-	const usernameHandler = (event) => {
-		setUserInput(event.target.value);
-	};
-
-	const ageHandler = (event) => {
-		setAgeInput(event.target.value);
-	};
-
+	const [error, setError] = useState();
+	const nameInputRef = useRef();
+	const ageInputRef = useRef();
 
 	const formSubmitHandler = (event) => {
 		event.preventDefault();
 
-		if (userInput.trim().length === 0 || ageInput.trim().length === 0) {
+		const nameInput = nameInputRef.current.value;
+		const ageInput = ageInputRef.current.value;
+
+		if (nameInput.trim().length === 0 || ageInput.trim().length === 0) {
 			setError({
 				title: "Invalid Input",
 				message: "Please enter a valid name and age (non-empty values)."
@@ -39,14 +33,15 @@ const UserInput = (props) => {
 
 			const formValues = {
 				id: Math.random().toString(),
-				name: userInput,
+				name: nameInput,
 				age: ageInput,
 			};
 			props.onUserValues(formValues);
 		}
 
-		setUserInput("");
-		setAgeInput("");
+		nameInputRef.current.value = '';
+		ageInputRef.current.value = '';
+
 	};
 
 	const closeHandler = () => {
@@ -60,9 +55,9 @@ const UserInput = (props) => {
 			<form className={styles["form-section"]} onSubmit={formSubmitHandler}>
 				<Card>
 					<label> Username</label>
-					<input type="text" value={userInput} onChange={usernameHandler} />
+					<input type="text" ref={nameInputRef} />
 					<label> Age(Years)</label>
-					<input type="number" value={ageInput} onChange={ageHandler} />
+					<input type="number" ref={ageInputRef} />
 					<button className={button.button}>Add User</button>
 				</Card>
 			</form>
