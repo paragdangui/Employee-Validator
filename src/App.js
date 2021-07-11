@@ -1,36 +1,34 @@
 import UserInput from "./components/User/UserInput/UserInput";
 import UserListing from "./components/User/UserListing/UserListing";
-import React, { useState } from 'react';
-import Wrapper from './components/Helpers/Wrapper';
+import React, { useState } from 'react'; //fragment is imported so u can use <Fragment> instead of <React.Fragment>
+// import Wrapper from './components/Helpers/Wrapper';
 
-// const initialValues = [
-//   { id: 1, name: "Sam", age: 22 },
-//   { id: 2, name: "Shawn", age: 34 }
-
-// ];
 function App() {
-  // const [hasInput, setHasInput] = useState(true);
   const [userInputValues, setUserInputValues] = useState('');
-
-
 
   const inputValuesHandler = (data) => {
     setUserInputValues(prevState => [data, ...prevState]);
-    // setHasInput(true);
-
-
   }
 
   return (
-    <Wrapper>
+    <React.Fragment>
+      {/* <ul style={{ color: "white" }}>
+        <li>portals</li>
+        <li>useState React Hook</li>
+        <li>Lifing State Up</li>
+        <li>components</li>
+        <li>props</li>
+        <li>props.children</li>
+        <li>template literal</li>
+      </ul> */}
       <UserInput
         onUserValues={inputValuesHandler}
       />
-      {userInputValues.length ? <UserListing
+      {userInputValues && <UserListing
         userValues={userInputValues}
-      /> : ''}
+      />}
 
-    </Wrapper>
+    </React.Fragment>
 
   );
 }
